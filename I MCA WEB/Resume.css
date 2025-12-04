@@ -1,0 +1,19 @@
+/*
+ * Styles for the Profile Image (no change)
+ */
+#Profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    transition: width 0.3s, height 0.3s, border-radius 0.3s;
+}
+
+/*
+ * Hover effect for the Profile Image (Animation - no change)
+ */
+#Profile:hover {
+    width: 400px;
+    height: 400px;
+    border-radius: 0;
+}
+

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Job Application Registration</title>
+    </head>
+<body>
+
+    <header>
+        <h1>Job Application Registration Form</h1>
+    </header>
+
+    <main>
+        <form id="registrationForm" onsubmit="return validateForm()">
+            <fieldset>
+                <legend>Personal Details</legend>
+                
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" title="Ten digits number" required>
+                
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+
+                <label for="program">Program Applied For:</label>
+                <select id="program" name="program" required>
+                    <option value="">-- Select Program --</option>
+                    <option value="mca">MCA</option>
+                    <option value="mba">MBA</option>
+                    <option value="msc">M.Sc. Computer Science</option>
+                </select>
+            </fieldset>
+
+            <fieldset>
+                <legend>HTML5 API Features</legend>
+
+                <h2>Geolocation Feature</h2>
+                <p>Click the button to get your current approximate location.</p>
+                <button type="button" id="getLocationBtn">Get My Location</button>
+                <p id="locationOutput">Location will appear here...</p>
+
+                <hr>
+
+                <h2>Local Storage Feature</h2>
+                <p>Save a preference that will persist even if you close and reopen the page.</p>
+                
+                <label for="userPreference">Favorite Color:</label>
+                <input type="text" id="userPreference" name="userPreference">
+                
+                <button type="button" id="savePreferenceBtn">Save Preference</button>
+                <p id="preferenceOutput">Current Saved Preference: None</p>
+                
+            </fieldset>
+
+            <button type="submit">Submit Application</button>
+            <button type="reset">Reset Form</button>
+        </form>
+    </main>
+
+    <script>
+        // JavaScript for form validation (4.b.) and API functionalities (4.a.) 
+        // would go here.
+        // The validateForm() function is called on form submission.
+        function validateForm() {
+            // Basic example validation for demonstration:
+            const fullName = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            
+            if (fullName.length < 5) {
+                alert('Full Name must be at least 5 characters long.');
+                return false; // Prevent form submission
+            }
+            
+            if (phone.length !== 10) {
+                alert('Phone number must be exactly 10 digits.');
+                return false;
+            }
+            
+            // In a real scenario, you'd add more comprehensive checks (email format, date range, etc.)
+            alert('Form is valid. Proceeding with submission (not actually submitted in this demo).');
+            return true; // Allow form submission (if form action was defined)
+        }
+
+        // --- 4.a. HTML5 API Implementation (Basic Stubs) ---
+        // 1. Geolocation API
+        document.getElementById('getLocationBtn').addEventListener('click', function() {
+            const output = document.getElementById('locationOutput');
+            output.textContent = 'Locating...';
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        output.textContent = `Latitude: ${lat}, Longitude: ${lon}`;
+                    },
+                    (error) => {
+                        output.textContent = `Error getting location: ${error.message}`;
+                    }
+                );
+            } else {
+                output.textContent = 'Geolocation is not supported by this browser.';
+            }
+        });
+
+        // 2. Local Storage API
+        const preferenceInput = document.getElementById('userPreference');
+        const preferenceOutput = document.getElementById('preferenceOutput');
+
+        // Load preference on page load
+        const savedPref = localStorage.getItem('favColor');
+        if (savedPref) {
+            preferenceOutput.textContent = `Current Saved Preference: ${savedPref}`;
+            preferenceInput.value = savedPref;
+        }
+
+        // Save preference on button click
+        document.getElementById('savePreferenceBtn').addEventListener('click', function() {
+            const newPref = preferenceInput.value.trim();
+            if (newPref) {
+                localStorage.setItem('favColor', newPref);
+                preferenceOutput.textContent = `Current Saved Preference: ${newPref}`;
+                alert('Preference saved successfully!');
+            } else {
+                alert('Please enter a preference.');
+            }
+        });
+
+    </script>
+
+</body>
+</html>

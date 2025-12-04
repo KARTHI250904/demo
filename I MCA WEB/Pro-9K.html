@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Book Entry Program</title>
+</head>
+<body>
+
+<h2>Book Entry Form</h2>
+
+Accession No: <input type="text" id="acc"><br><br>
+Title: <input type="text" id="title"><br><br>
+Author: <input type="text" id="author"><br><br>
+
+<button onclick="showBook()">Submit</button>
+
+<h3>Book Details Entered:</h3>
+<div id="output" style="border:1px solid #444; padding:10px; width:300px;">
+    No details yet.
+</div>
+
+<script>
+function showBook() {
+    let acc = document.getElementById("acc").value;
+    let title = document.getElementById("title").value;
+    let author = document.getElementById("author").value;
+
+    let result = "<b>Accession No:</b> " + acc +
+                 "<br><b>Title:</b> " + title +
+                 "<br><b>Author:</b> " + author;
+
+    document.getElementById("output").innerHTML = result;
+}
+</script>
+
+</body>
+</html>

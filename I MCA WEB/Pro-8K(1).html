@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React Search Filter</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Removed Babel to avoid in-browser transpilation; using plain React createElement code below -->
+
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        input { padding: 8px; width: 250px; margin-bottom: 10px; }
+        li { margin: 5px 0; }
+    </style>
+</head>
+
+<body>
+    <h2>React JS Search Filter</h2>
+
+    <div id="root"></div>
+
+    <script>
+        // Plain React (no JSX) implementation so no Babel is required
+        function App() {
+            const items = ["Apple", "Banana", "Orange", "Mango", "Pineapple", "Strawberry", "Grapes"];
+
+            const [search, setSearch] = React.useState("");
+
+            const filteredItems = items.filter(function(item) {
+                return item.toLowerCase().includes(search.toLowerCase());
+            });
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement('input', {
+                    type: 'text',
+                    placeholder: 'Search item...',
+                    value: search,
+                    onChange: function(e) { setSearch(e.target.value); },
+                    style: { padding: '8px', width: '250px', marginBottom: '10px' }
+                }),
+                React.createElement('ul', null,
+                    filteredItems.map(function(item, index) {
+                        return React.createElement('li', { key: index }, item);
+                    })
+                )
+            );
+        }
+
+        // Render App
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+    </script>
+
+</body>
+</html>

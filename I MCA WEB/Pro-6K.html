@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Video Player</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        video { width: 100%; max-width: 600px; margin-bottom: 15px; }
+        .playlist div {
+            padding: 10px;
+            background: #f1f1f1;
+            margin-top: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .playlist div:hover {
+            background: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Simple Video Player (HTML + jQuery)</h2>
+
+    <!-- Video Player -->
+    <video id="videoPlayer" controls></video><br><br>
+
+    <!-- File Input -->
+    <input type="file" id="videoInput" accept="video/*" multiple><br><br>
+
+    <h3>Playlist</h3>
+    <div class="playlist" id="playlist"></div>
+
+    <script>
+        let playlist = [];
+
+        $("#videoInput").on("change", function () {
+            let files = this.files;
+
+            for (let i = 0; i < files.length; i++) {
+                let url = URL.createObjectURL(files[i]);
+
+                playlist.push(url);
+
+                // Append playlist item
+                $("#playlist").append(`
+                    <div data-index="${playlist.length - 1}">
+                        🎬 ${files[i].name}
+                    </div>
+                `);
+            }
+        });
+
+        // Play selected video
+        $("#playlist").on("click", "div", function () {
+            let index = $(this).data("index");
+            $("#videoPlayer").attr("src", playlist[index]);
+            $("#videoPlayer")[0].play();
+        });
+    </script>
+
+</body>
+</html>

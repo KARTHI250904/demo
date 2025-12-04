@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Validation and Resume</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: lightgray;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      width: 400px;
+      height:325px;
+      text-align: center;
+    }
+    h2 {
+      color: lightsalmon;
+      font-weight: bold;
+    }
+    .user{
+      text-align: left;
+      margin: 10px 8px;
+    }
+    .password{
+      text-align: left;
+      margin: 10px 8px;
+    }
+    input {
+      width: 90%;
+      height:7%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 13px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="container" id="loginForm">
+    <h2>Login Form</h2>
+    <p class="user">Enter Username</p>
+    <input type="text" id="username" placeholder="Enter Username">
+    <p class="password">Enter Password</p>
+    <input type="password" id="password" placeholder="Enter Password">
+    <br><br>
+    <button onclick="validateLogin()">Login</button>
+    <p class="error" id="errorMsg"></p>
+  </div>
+  
+  <script>
+    function validateLogin() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      // Change these credentials as needed
+      const validUsername = "karthikn";
+      const validPassword = "123";
+
+      if (username === validUsername && password === validPassword) {
+       window.location.href="Pro-1KN.html";
+      } else {
+        errorMsg.textContent = "Invalid username or password. Please try again!";
+      }
+    }
+  </script>
+</body>
+</html>

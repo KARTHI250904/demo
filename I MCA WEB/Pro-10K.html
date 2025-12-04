@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Simple Social Media</title>
+    <style>
+        body { font-family: Arial, sans-serif; background:#f0f0f0; padding:20px; }
+        .box, .post { background:#fff; padding:15px; margin-bottom:15px; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+        textarea { width:100%; padding:10px; resize:vertical; min-height:80px; }
+        .post img { max-width:100%; margin-top:10px; border-radius:8px; display:block; }
+        .meta { color:#666; font-size:0.9rem; margin-bottom:8px; }
+    </style>
+</head>
+<body>
+<h2>Simple Social Media App</h2>
+<div class="box">
+    <textarea id="content" placeholder="Write something..."></textarea><br><br>
+    <input type="file" id="imageInput" accept="image/*"><br><br>
+    <button id="postBtn">Post</button>
+</div>
+<h3>All Posts</h3>
+<div id="feed"></div>
+<script>
+/**
+ * Escape user text to avoid HTML injection.
+ */
+function escapeHTML(str) {
+    if (!str) return "";
+    return str
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+}
+function addPost() {
+    const text = document.getElementById("content").value;
+    const fileInput = document.getElementById("imageInput");
+    const file = fileInput.files[0];
+    if (text.trim() === "" && !file) {
+        alert("Write something or select an image!");
+        return;
+    }
+    // Create post container
+    const postEl = document.createElement("div");
+    postEl.className = "post";
+    // Meta (timestamp)
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    const now = new Date();
+    meta.textContent = `Posted on ${now.toLocaleString()}`;
+    postEl.appendChild(meta);
+    // Text (escaped)
+    if (text.trim() !== "") {
+        const p = document.createElement("p");
+        // Use textContent to avoid HTML injection OR use escaped HTML
+        p.textContent = text;
+        postEl.appendChild(p);
+    }
+    // If there's an image, read it and append once loaded
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.alt = "User uploaded image";
+            postEl.appendChild(img);
+
+            // Prepend to feed (newest first)
+            const feed = document.getElementById("feed");
+            feed.prepend(postEl);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        // No image — just prepend post now
+        const feed = document.getElementById("feed");
+        feed.prepend(postEl);
+    }
+    // Clear inputs
+    document.getElementById("content").value = "";
+    fileInput.value = "";
+}
+// Attach to button
+document.getElementById("postBtn").addEventListener("click", addPost);
+</script>
+</body>
+</html>
