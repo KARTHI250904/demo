@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="loginApp">
+<head>
+    <title>Login System</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="LoginController">
+
+<h2>Register</h2>
+<input type="text" ng-model="user.username" placeholder="Username"><br><br>
+<input type="email" ng-model="user.email" placeholder="Email"><br><br>
+<input type="password" ng-model="user.password" placeholder="Password"><br><br>
+<button ng-click="register()">Register</button>
+
+<hr>
+
+<h2>Login</h2>
+<input type="email" ng-model="login.email" placeholder="Email"><br><br>
+<input type="password" ng-model="login.password" placeholder="Password"><br><br>
+<button ng-click="loginUser()">Login</button>
+
+<p>{{message}}</p>
+
+<script src="app1.js"></script>
+</body>
+</html>
